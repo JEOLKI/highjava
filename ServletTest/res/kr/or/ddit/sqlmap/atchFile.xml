@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- namespace속성 : 아래에서 작성한 SQL을 호출할때 같이 사용된다. -->
+<sqlMap namespace="atchFile">
+	
+	<resultMap class="kr.or.ddit.cmm.vo.FileVO" id="atchFileMap">
+		<result property="atchFileId" column="atch_file_id"/>
+		<result property="orignlFileNm" column="orignl_file_nm"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="fileExtsn" column="file_extsn"/>
+		<result property="fileStrePath" column="file_stre_path"/>
+		<result property="regDate" column="reg_dt"/>
+	</resultMap>
+	
+	<insert id="insertAtchFile" parameterClass="kr.or.ddit.cmm.vo.FileVO">
+	
+		<selectKey keyProperty="atchFileId" resultClass="int">
+		   select ATCH_FILE_SEQ.nextval from dual
+		</selectKey>
+		
+		insert into atch_file
+		(ATCH_FILE_ID,
+		ORIGNL_FILE_NM,
+		FILE_SIZE,
+		FILE_EXTSN,
+		FILE_STRE_PATH,
+		REG_DT)
+		values 
+		(
+		#atchFileId#,
+		#orignlFileNm#,
+		#fileSize#,
+		#fileExtsn#,
+		#fileStrePath#,
+		sysdate
+		)
+		
+	</insert>
+	
+	<select id="selectAtchFile" resultMap="atchFileMap">
+		
+		select * from atch_file
+		where atch_file_id = #atchFileId#
+	
+	</select>
+  	
+</sqlMap>			
+
+
+
+
+

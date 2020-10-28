@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>ServletTest</display-name>
+	<servlet>
+		<servlet-name>T01_ServletLifeCycle</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T01_ServletLifeCycle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T01_ServletLifeCycle</servlet-name>
+		<url-pattern>/T01_ServletLifeCycle</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T02_ServletTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T02_ServletTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T02_ServletTest</servlet-name>
+		<url-pattern>/T02_ServletTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T03_ServletParameterTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T03_ServletParameterTest</servlet-class>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>T03_ServletParameterTest</servlet-name>
+		<url-pattern>/T03_ServletParameterTest.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T04_ErrorHandler</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T04_ErrorHandler</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>T04_ErrorHandler</servlet-name>
+		<url-pattern>/T04_ErrorHandler</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T08_ServletContextListenerTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T08_ServletContextListenerTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T08_ServletContextListenerTest</servlet-name>
+		<url-pattern>/T08_ServletContextListenerTest</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>T05_ServletCookieTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T05_ServletCookieTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T05_ServletCookieTest</servlet-name>
+		<url-pattern>/T05_ServletCookieTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T06_ServletSessionTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T06_ServletSessionTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T06_ServletSessionTest</servlet-name>
+		<url-pattern>/T06_ServletSessionTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T09_ServletRequestListenerTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T09_ServletRequestListenerTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T09_ServletRequestListenerTest</servlet-name>
+		<url-pattern>/T09_ServletRequestListenerTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T10_SessionListenerTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T10_SessionListenerTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T10_SessionListenerTest</servlet-name>
+		<url-pattern>/T10_SessionListenerTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>kr.or.ddit.img.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/ImageServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>kr.or.ddit.upload.UploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/upload2</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dispatcher-servlet</servlet-name>
+		<servlet-class> kr.or.ddit.member.controller.FrontController</servlet-class>
+		<init-param>
+			<param-name>handler-config</param-name>
+			<param-value>/WEB-INF/handler.properties</param-value>
+		</init-param>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>dispatcher-servlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<listener>
+		<listener-class>kr.or.ddit.basic.MyServletContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>kr.or.ddit.basic.MyServletRequestListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>kr.or.ddit.basic.MySessionAttributeListener</listener-class>
+	</listener>
+	
+	
+	<!-- 
+	<filter>
+		<filter-name>LogFilter</filter-name>
+		<filter-class>kr.or.ddit.basic.T07_ServletFilterTest</filter-class>
+		<init-param>
+			<param-name>init-param</param-name>
+			<param-value>로그인필터정상작동</param-value>
+		</init-param>
+		
+	</filter>
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>CalcFilter</filter-name>
+		<filter-class>kr.or.ddit.basic.T07_ServletFilterTest2</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CalcFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	 
+	<filter>
+		<filter-name>CustomEncodingFilter</filter-name>
+		<filter-class>kr.or.ddit.basic.CustomEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CustomEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 
+
+	
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/T04_ErrorHandler</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/T04_ErrorHandler</location>
+	</error-page>
+	
+<!-- 	<session-config> -->
+<!-- 		<session-timeout>1</session-timeout> -->
+<!-- 	</session-config> -->
+	
+	
+</web-app>

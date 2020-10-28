@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- namespace속성 : 아래에서 작성한 SQL을 호출할때 같이 사용된다. -->
+<sqlMap namespace="member">
+
+<!-- 
+	이 영역에서 sql문에 맞는 태크를 사용하여 sql문을 기술한다.
+	
+	사용할 수 있는 기본적인 태그들
+	<select> ~~~ </select>
+	<insert> ~~~ </insert>
+	<update> ~~~ </update>
+	<delete> ~~~ </delete>
+	
+	위 태그에서 사용되는 속성들
+	1) id속성 : 해당 태그를 호출 할 떄 <sqlMap>태그의 namespace와 연결하여 사용하는 이름
+	
+	2) parameterClass속성 : sql문에 사용될 데이터가 들어있는 객체를 지정한다.
+						(보통 VO클래스, 자바의 자료형이름 등이 사용된다.)
+						(typeAlias로 지정한 alias명을 사용할 수 있다.)
+	
+	3) resultClass속성  : select문을 실행한 결과를 담을 객체를 지정한다.
+						(보통 VO클래스나 자바의 자료형이름을 사용한다.)
+ -->
+
+	<!-- insert 연습 -->
+	<insert id="insertMember" parameterClass="kr.or.ddit.member.vo.MemberVO">
+
+		INSERT INTO MYMEMBER ( MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR )
+		VALUES (#mem_id#,#mem_name#,#mem_tel#,#mem_addr#)
+		<!-- 속성값만 보고 추측하여 파라미터객체.getMem_id()를 호출하게 된다. -->
+
+	</insert>
+	
+	<!-- update 연습 -->
+	<update id="updateMember" parameterClass="memVO">
+	
+		UPDATE MYMEMBER  
+		SET MEM_NAME = #mem_name# ,
+	 	   MEM_TEL = #mem_tel# ,
+	 	   MEM_ADDR = #mem_addr#  
+		WHERE MEM_ID = #mem_id# 
+	
+	</update>
+	
+	<!-- delete 연습 -->
+	<delete id="deleteMember" parameterClass="String">
+	
+		DELETE FROM MYMEMBER WHERE MEM_ID = #mem_id#
+	
+	</delete>
+	
+	<!-- select 연습 -->
+	<select id="getMemberAll" resultClass="memVO">
+		
+		<!-- 생성자가 기본생성자가 아닌 필드를 이용한 생성자이면. 에러가 난다.
+			 해결방벙 : VO객체에 기본생성자를 명시적으로 만들어주고 필드를 이용한생성자를 만들어 이용한다. -->
+		
+		SELECT * FROM MYMEMBER
+	
+	</select>
+	
+	<select id="getMember" resultClass="int">
+	
+		SELECT COUNT(*) AS CNT FROM MYMEMBER WHERE MEM_ID = #mem_id#
+		
+	</select>
+	
+	<select id="getSearchMember" resultClass="memVO">
+	
+	SELECT * FROM MYMEMBER WHERE 1=1
+	
+	<!-- isNotEmpty : null도 아니고 사이즈가 0도 아닌것 -->
+	<isNotEmpty property="mem_id">
+	AND MEM_ID = #mem_id#
+	</isNotEmpty>
+	<isNotEmpty property="mem_name">
+	AND MEM_NAME = #mem_name#
+	</isNotEmpty>
+	<isNotEmpty property="mem_tel">
+	AND MEM_TEL = #mem_tel#
+	</isNotEmpty>
+	<isNotEmpty property="mem_addr">
+	AND MEM_ADDR LIKE '%' || #mem_addr# || '%' 
+	</isNotEmpty>
+	
+	</select>
+	
+</sqlMap>			
+
+
+
+
+

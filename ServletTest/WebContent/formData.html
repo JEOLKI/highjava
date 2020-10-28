@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>입력폼 예제</title>
+</head>
+<body>
+	<form method="post" action="T03_ServletParameterTest.do">
+		<label for="username">유저명:</label><br>
+		<input type="text" name="username" id="username"><br>
+		<label for="password">패스워드:</label><br>
+		<input type="password" name="password" id="password"><br>
+		<hr>
+		<input type="radio" id="male" name="gender" value="male">
+		<label for="male">남자</label><br>
+		<input type="radio" id="female" name="gender" value="female">
+		<label for="female">여자</label><br>
+		<input type="radio" id="other" name="gender" value="other">
+		<label for="other">기타</label><br>
+		<hr>
+		<input type="checkbox" id="ch01" name="hobby" value="ch01">
+		<label for="ch01">낚시</label>
+		<input type="checkbox" id="ch02" name="hobby" value="ch02">
+		<label for="ch02">등산</label>
+		<input type="checkbox" id="ch03" name="hobby" value="ch03">
+		<label for="ch03">하이킹</label>
+		<input type="checkbox" id="ch04" name="hobby" value="ch04">
+		<label for="ch04">독서</label>
+		<hr>
+		<label for="rlgn">종교</label>
+		<select id="rlgn" name="rlgn">
+			<option value="01">불교</option>
+			<option value="02">기독교</option>
+			<option value="03">힌두교</option>
+			<option value="04">기타</option>
+		</select>
+		<hr>
+		<label for="food">좋아하는 음식</label>
+		<select id="food" name="food" multiple="multiple" size="4">
+			<option value="01">소고기</option>
+			<option value="02">돼지고기</option>
+			<option value="03">물고기</option>
+			<option value="04">기타</option>
+		</select>
+		
+		<br>
+		<br>
+		<input type="submit" value="전송하기">
+				
+	</form>
+
+</body>
+</html>

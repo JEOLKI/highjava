@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 업로드 예제</title>
+</head>
+<body>
+	
+	<h3>아파치 자카르타 프로젝트의 fileupload 모듈을 이용한 파일업로드</h3>
+	<form method="post" action="upload2" enctype="multipart/form-data"> <!-- 무조건 post / 인코딩전송방식설정해야함 -->
+		파일선택 : <input type="file" name="uploadFile"/>
+		전송자 : <input type="text" name="sender">
+		<input type="submit" value="Upload">
+	</form>
+	<br>
+	<hr>
+	
+	<h3>서블릿3부터 지원하는 Part인터페이스를 이용한 파일업로드</h3>
+	<form action="upload3" method="post" enctype="multipart/form-data">
+		파일선택 : <input type="file" name="mutipartServlet" />
+		<input type="submit" value="전송">
+	
+	</form>
+
+</body>
+</html>

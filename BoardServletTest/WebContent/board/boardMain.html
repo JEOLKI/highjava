@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BOARD SERVLET TEST</title>
+
+<script src="../js/board.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+	$(function() {
+		
+		$.ajax({
+			url : '/BoardServletTest/BoardList',
+			type: 'post',
+			dataType : 'json',
+			success : function(res) {
+				
+				code =  "<table border='1'>";
+				code += "<tr>";
+				code += "<td>번호</td>";
+				code += "<td>제목</td>";
+				code += "<td>내용</td>";
+				code += "<td>작성자</td>";
+				code += "<td>작성일</td>";
+				code += "<td colspan='2'>button</td>";
+				code += "</tr>";
+				$.each(res, function(i,v) {
+					code += "<tr class='trtab'>";
+					code += "<td>" + v.no + "</td>\n";
+					code += "<td class='title' id='"+ v.no +"'>" + v.title + "</td>\n";
+					code += "<td class='content1'>" + v.content + "</td>\n";
+					code += "<td>" + v.writer + "</td>\n";
+					code += "<td>" + v.date + "</td>\n";
+					code += "<td><button idx="+ v.no +" id='updateBoard' type='button'> 글수정 </button></td>\n"
+					code += "<td><button idx="+ v.no +" id='deleteBoard' type='button'> 글삭제 </button></td>\n"
+					code += "</tr>\n";
+				})
+				code += "</table>"
+				
+				$('#tab').append(code);
+				
+			},
+			error : function(xhr) {
+				alert("상태 : " + xhr.status);
+			}
+		})
+		
+		
+		
+		$('#tab').on('click','#backlist',function() {
+		
+			location.href="boardMain.html";
+			
+		})
+		
+		
+		$('#tab').on('click', '#deleteBoard', function() {
+			
+			num = $(this).attr('idx');
+			
+			console.log("삭제할 글번호" + num);
+			
+			$.ajax({
+				url : '/BoardServletTest/deleteBoard',
+				type : 'get',
+				data : { "boardNo" : num},
+				dataType : 'json',
+				success : function(res) {
+					alert(res.sw);
+				}
+				
+			})
+			
+			location.href="boardMain.html"
+		})
+		
+		$('#tab').on('click', '#updateBoard', function() {
+			
+			num = $(this).attr('idx');
+			
+			$('#tab').empty();
+			
+			code = '<div id="updateForm">';
+			code += '	<label>글 제 목 :</label><input type="text" id="title" name="title" value=""><br><br>';
+			code += '	<label>글 내 용 </label><br><br>';                                 
+			code += '	<textarea rows="20" cols="40" id="content" name="content"></textarea><br>';
+			code += "   <button id='backlist' type='button'> 글목록 </button>&nbsp;&nbsp;&nbsp;&nbsp;"
+			code += '	<input idx="'+num+'" type="button" value="글수정" id="update">';                             
+			code += '</div>';                                                                              
+			
+			$('#tab').append(code);
+			
+		})
+		
+		
+		$('#tab').on('click', '#update', function() {
+			
+			num = $(this).attr('idx');
+			title =  $('#updateForm #title').val();
+			content = $('#updateForm #content').val();
+			
+			
+			console.log(num);
+			console.log(title);
+			console.log(content);
+			
+			update = { "num" : num,
+						"title" : title,
+						"content" : content}
+			
+			console.log(update);
+			
+			
+			updateBoard(update);
+			
+		})
+		
+		
+		$('#searchBoard').on('click', function(){
+			
+			searchOption = $('#selbox option:selected').val();
+			
+			searchKeyWord = $('#searchKeyWord').val();
+			
+			searchElement = { 
+								"Option" : searchOption,
+							 	"KeyWord" : searchKeyWord
+							}
+			
+			searchBoard(searchElement);
+			
+		})
+		
+		
+		
+		
+		
+		
+	})
+
+</script>
+
+
+<style type="text/css">
+	
+	body{
+		font-family: '배달의민족 을지로체 TTF';
+		text-align: center;
+	}
+	
+	table {
+		display : inline-block;
+		border-collapse: collapse;
+	}
+	
+	tr, td{
+		padding: 10px;
+	}
+	
+	.title{
+		width: 100px;
+	}
+	
+	.content1{
+		width : 200px;
+	}
+	
+	.trtab:hover{
+		background: yellow;
+	}
+	
+	tr:nth-child(1) {
+		background: lightblue;
+	}
+	
+	#contentin{
+		text-align: left;
+		vertical-align: text-top;
+		overflow: auto;
+		height: 400px;
+	}
+
+</style>
+
+</head>
+<body>
+	<h1>BOARD</h1>
+	
+	<p id="tab"></p>
+	
+	<select id="selbox">
+		<option>글제목만</option>
+		<option>글내용만</option>
+		<option>글제목 + 내용</option>
+		<option>작성자</option>
+	</select>
+	
+	<input id="searchKeyWord" type="text" value="">
+	<input id="searchBoard" type="button" value="검색"> 
+	<button type="button" onclick="location.href='insertBoard.html'">글 쓰 기</button><br>
+</body>
+</html>
